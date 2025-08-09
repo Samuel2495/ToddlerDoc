@@ -6,6 +6,7 @@ app.use(express.json({ limit: '10mb' })); // Increase limit if necessary
 
 app.post('/upload', async (req, res) => {
     const uploadedFilePath = req.body.filePath; // Path to the uploaded PDF file
+
     const scribbles = req.body.scribbles; // Assume scribbles are sent as base64 images
     const pdfBuffer = fs.readFileSync(uploadedFilePath);
 

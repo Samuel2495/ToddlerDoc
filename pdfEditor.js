@@ -11,15 +11,17 @@ async function editPdfWithScribbles(pdfBuffer, scribbles) {
         const page = pages[i];
         const { width, height } = page.getSize();
 
-        // Overlay scribbles on the page
-        const scribbleImage = scribbles[i]; // Assume scribbles are provided as images
-        const pngImage = await pdfDoc.embedPng(scribbleImage);
-        page.drawImage(pngImage, {
-            x: 0,
-            y: 0,
-            width,
-            height,
-        });
+        // Overlay scribbles on the actual PDF page
+        if (scribbles[i]) {
+            const scribbleImage = scribbles[i]; // Assume scribbles are provided as base64 images
+            const pngImage = await pdfDoc.embedPng(scribbleImage);
+            page.drawImage(pngImage, {
+                x: 0,
+                y: 0,
+                width,
+                height,
+            });
+        }
     }
 
     // Save the modified PDF and return the bytes
